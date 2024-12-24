@@ -9,14 +9,17 @@ import SwiftUI
 
 struct ListView: View {
     
-    @State var items: [String] = [
-        "Finish UI", "Build Astro Shit", "Watch a movie"
+    @State var items: [ItemModel] = [
+        ItemModel(title: "Take a Walk", isCompleted: false),
+        ItemModel(title: "LeetCode", isCompleted: false),
+        ItemModel(title: "Wash the Dishes", isCompleted: true),
+        ItemModel(title: "Take the Laundry", isCompleted: true)
     ]
     
     var body: some View {
         List {
-            ForEach(items, id: \.self) { item in
-                    ListRowView(title: item)
+            ForEach(items) { item in
+                ListRowView(title: item.title, isCompleted: item.isCompleted)
             }
 //            .onDelete(perform: { indexSet in
 //                items.remove(atOffsets: indexSet)

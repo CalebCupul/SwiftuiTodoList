@@ -10,10 +10,11 @@ import SwiftUI
 struct ListRowView: View {
     
     let title: String
+    let isCompleted: Bool
     
     var body: some View {
         HStack {
-            Image(systemName: "checkmark.circle")
+            Image(systemName: isCompleted ? "checkmark.circle.fill" : "circle")
             Text(title)
             Spacer()
         }
@@ -21,5 +22,5 @@ struct ListRowView: View {
 }
 
 #Preview {
-    ListRowView(title: "Write Code")
+    ListRowView(title: "Write Code", isCompleted: false)
 }
