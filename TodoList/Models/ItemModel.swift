@@ -8,8 +8,19 @@
 import Foundation
 
 struct ItemModel: Identifiable {
-    let id: String = UUID().uuidString
+    let id: UUID
     let title: String
-    let isCompleted: Bool
+    var isCompleted: Bool
+    
+    init(id: UUID = UUID(), title: String, isCompleted: Bool){
+        self.id = id
+        self.title = title
+        self.isCompleted = isCompleted
+    }
+    
+    func toggleCompletition() -> ItemModel {
+        return ItemModel(id: id, title: title, isCompleted: !isCompleted)
+    }
 }
+
 

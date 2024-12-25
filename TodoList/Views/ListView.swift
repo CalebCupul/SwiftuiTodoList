@@ -9,21 +9,18 @@ import SwiftUI
 
 struct ListView: View {
     
-    @State var items: [ItemModel] = [
-        ItemModel(title: "Take a Walk", isCompleted: false),
-        ItemModel(title: "LeetCode", isCompleted: false),
-        ItemModel(title: "Wash the Dishes", isCompleted: true),
-        ItemModel(title: "Take the Laundry", isCompleted: true)
-    ]
+    @EnvironmentObject var listViewModel: ListViewModel
     
     var body: some View {
         List {
-            ForEach(items) { item in
+            ForEach(listViewModel.items) { item in
                 ListRowView(title: item.title, isCompleted: item.isCompleted)
+                    .onTapGesture {
+                        listViewModel.updateItem(item: item)
+                    }
             }
-//            .onDelete(perform: { indexSet in
-//                items.remove(atOffsets: indexSet)
-//            })
+            .onDelete(perform: listViewModel.deleteItem)
+            .onMove(perform: listViewModel.moveItem)
         }
         .navigationTitle("Todo's")
         .toolbar {
@@ -41,4 +38,5 @@ struct ListView: View {
     NavigationStack {
         ListView()
     }
+    .environmentObject(ListViewModel())
 }
